@@ -34,5 +34,71 @@
  *   // => { totalBatches: 3, totalPlates: 15, ordersProcessed: 2 }
  */
 export function biryaniBatchProcessor(orders) {
-  // Your code here
+  if (
+    !Array.isArray(orders) ||
+    orders === null ||
+    orders === undefined ||
+    orders.length === 0
+  )
+    return {
+      totalBatches: 0,
+      totalPlates: 0,
+      ordersProcessed: 0,
+    };
+  let totalBatches = 0;
+  let totalPlates = 0;
+  let ordersProcessed = 0;
+
+  let i = 0;
+  // do {
+  //   if (
+  //     typeof orders[i] !== "number" ||
+  //     !Number.isInteger(orders[i]) ||
+  //     orders[i] <= 0
+  //   ) {
+  //     i++;
+  //     continue;
+  //   }
+  //   totalBatches +=
+  //     orders[i] % 5 === 0
+  //       ? Math.floor(orders[i] / 5)
+  //       : Math.floor(orders[i] / 5) + 1;
+  //   totalPlates += orders[i];
+  //   ordersProcessed += 1;
+  //   i++;
+  // } while (i < orders.length);
+
+  for (const i in orders) {
+    if (
+      typeof orders[i] !== "number" ||
+      !Number.isInteger(orders[i]) ||
+      orders[i] <= 0
+    )
+      continue;
+    // let plates = orders[i];
+    // do {
+    //   if (plates >= 5) {
+    //     plates -= 5;
+    //     totalBatches++;
+    //     totalPlates += 5;
+    //   } else {
+    //     totalBatches++;
+    //     totalPlates += plates;
+    //     plates = 0;
+    //   }
+    // } while (plates > 0);
+    let remaining = orders[i];
+    do {
+      let batch = Math.min(5, remaining);
+      totalBatches++;
+      totalPlates += batch;
+      remaining -= batch;
+    } while (remaining > 0);
+    ordersProcessed++;
+  }
+  return {
+    totalBatches,
+    totalPlates,
+    ordersProcessed,
+  };
 }

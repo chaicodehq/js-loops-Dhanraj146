@@ -36,5 +36,21 @@
  *   rangoli(3) // => ["  *", " * *", "* * *", " * *", "  *"]
  */
 export function rangoli(n) {
-  // Your code here
+  if (typeof n !== "number" || !Number.isInteger(n) || n <= 0) return [];
+  const arr = [];
+  for (let i = 1; i <= 2 * n - 1; i++) {
+    let stars = i <= n ? i : 2 * n - i; // top + bottom
+    let str = "";
+    // leading spaces
+    for (let s = 1; s <= n - stars; s++) {
+      str += " ";
+    }
+    // stars with space in between (no trailing space)
+    for (let j = 1; j <= stars; j++) {
+      str += "*";
+      if (j < stars) str += " ";
+    }
+    arr.push(str);
+  }
+  return arr;
 }
